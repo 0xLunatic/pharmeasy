@@ -1,5 +1,8 @@
 <?php
-require 'dbConnection.php'; // Make sure the path is correct
+$servername = "localhost"; // Change if needed
+$username = "root"; // Your database username
+$password = ""; // Your database password
+$dbname = "pharmeasy"; // Your database name
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -10,6 +13,14 @@ use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
 $mail = new PHPMailer(true);
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Select the database
 $conn->select_db($dbname);
@@ -48,7 +59,7 @@ if (isset($data['email'])) {
                 $mail->Password = 'rbzxliaadfnmtegi';                               //SMTP password
                 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                 $mail->CharSet = "UTF-8";
-                $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
 
                 //Recipients
                 $mail->setFrom('from@pharmeasy.com', 'Pharmeasy Forgot Password');

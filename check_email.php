@@ -1,5 +1,17 @@
 <?php
-require 'dbConnection.php'; // Make sure the path is correct
+$servername = "localhost"; // Change if needed
+$username = "root"; // Your database username
+$password = ""; // Your database password
+$dbname = "pharmeasy"; // Your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check for input parameters
 $data = json_decode(file_get_contents("php://input"), true);
